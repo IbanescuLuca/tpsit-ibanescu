@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulsanti Colorati</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .button1 {
+            background-color: #04AA6D; /* Verde */
+        }
+
+        .button1:hover {
+            background-color: #038d56;
+        }
+
+        .button2 {
+            background-color: #008CBA; /* Blu */
+        }
+
+        .button2:hover {
+            background-color: #0078a0;
+        }
+
+        .button3 {
+            background-color: #ff0000; /* Rosso */
+        }
+
+        .button3:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pulsanti Colorati</h1>
+<button class="button button1" onclick="showMessage('Hai schiacciato il bottone verde!')">Verde</button>
+<button class="button button2" onclick="showMessage('Hai schiacciato il bottone blu!')">Blu</button>
+<button class="button button3" onclick="showMessage('Hai schiacciato il bottone rosso!')">Rosso</button>
+
+<script>
+function showMessage(message) {
+    alert(message);
+}
+</script>
+
+</body>
+</html>
