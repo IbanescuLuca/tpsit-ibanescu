@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aforismi di Scienziati</title>
+    <style>
+        .aforisma {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aforismi di Scienziati</h1>
+
+    <div class="aforisma">
+        <p id="aforisma1">"La scienza è un modo di pensare molto più che un corpo di conoscenze." - Carl Sagan</p>
+        <button onclick="nascondiTesto('aforisma1')">Nascondi Testo</button>
+    </div>
+
+    <div class="aforisma">
+        <p id="aforisma2">"La misura della saggezza è la capacità di cambiare quando è necessario." - Charles Darwin</p>
+        <button onclick="nascondiTesto('aforisma2')">Nascondi Testo</button>
+    </div>
+
+    <div class="aforisma">
+        <p id="aforisma3">"La scienza non è solo compatibile con la spiritualità; è una profondissima fonte di spiritualità." - Carl Jung</p>
+        <button onclick="nascondiTesto('aforisma3')">Nascondi Testo</button>
+    </div>
+
+    <div class="aforisma">
+        <p id="aforisma4">"La scienza è l'unico modo per capire il mondo." - Albert Einstein</p>
+        <button onclick="nascondiTesto('aforisma4')">Nascondi Testo</button>
+    </div>
+
+    <div class="aforisma">
+        <p id="aforisma5">"La scienza è un'avventura intellettuale." - Richard Feynman</p>
+        <button onclick="nascondiTesto('aforisma5')">Nascondi Testo</button>
+    </div>
+
+    <script>
+        function nascondiTesto(id) {
+            const testo = document.getElementById(id);
+            testo.style.display = "none"; 
+        } 
+    </script>
+
+</body>
+</html>
