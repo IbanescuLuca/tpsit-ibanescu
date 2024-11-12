@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo Dislivello Trekking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        input, button {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .risultato {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calcolo Dislivello Trekking</h2>
+    <input type="number" id="partenza" placeholder="Partenza (m)" required>
+    <input type="number" id="pausa" placeholder="Pausa (m)" required>
+    <input type="number" id="arrivo" placeholder="Arrivo (m)" required>
+    <button id="calcola">Calcola</button>
+    <div id="risultato" class="risultato"></div>
+
+    <script>
+        document.getElementById('calcola').addEventListener('click', function() {
+            const partenza = parseFloat(document.getElementById('partenza').value);
+            const pausa = parseFloat(document.getElementById('pausa').value);
+            const arrivo = parseFloat(document.getElementById('arrivo').value);
+            
+            const dislivello = Math.abs(arrivo - partenza) + Math.abs(pausa - partenza) + Math.abs(arrivo - pausa);
+            document.getElementById('risultato').innerText = `Dislivello totale: ${dislivello} m`;
+        });
+    </script>
+</body>
+</html>
