@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatore Decrementale</title>
+    <style>
+        #hiddenImage {
+            display: none; /* Nascondi l'immagine inizialmente */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Contatore Decrementale</h1>
+
+    <nav>
+        <ul>
+            <li>HTML/CSS
+                <ul>
+                    <li><a href="#esercizio1">Esercizio 1</a></li>
+                    <li><a href="#esercizio2">Esercizio 2</a></li>
+                </ul>
+            </li>
+            <li>JavaScript
+                <ul>
+                    <li><a href="#esercizio1">Esercizio 1</a></li>
+                    <li><a href="#esercizio2">Esercizio 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div>
+        <h2 id="countdown">3</h2>
+        <button onclick="startCountdown()">Inizia Countdown</button>
+    </div>
+
+    <div id="hiddenImage">
+        <img src="https://via.placeholder.com/150" alt="Immagine mostrata a zero">
+    </div>
+
+    <script>
+        let count = 3; // Inizializza il contatore
+
+        function startCountdown() {
+            const countdownElement = document.getElementById("countdown");
+            const hiddenImage = document.getElementById("hiddenImage");
+
+            const interval = setInterval(() => {
+                if (count > 0) {
+                    countdownElement.innerHTML = count; // Aggiorna il contatore
+                    count--; // Decrementa il contatore
+                } else {
+                    clearInterval(interval); // Ferma l'intervallo
+                    countdownElement.innerHTML = "0"; // Mostra zero
+                    hiddenImage.style.display = "block"; // Mostra l'immagine
+                }
+            }, 1000); // Aggiorna ogni secondo
+        }
+    </script>
+
+</body>
+</html>
