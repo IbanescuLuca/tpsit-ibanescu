@@ -4,69 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contatore Decrementale con Immagine</title>
-  <style>
-    /* Stile di base */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    header {
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-
-    header nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    header nav ul li {
-      display: inline;
-      margin: 0 10px;
-    }
-
-    header nav ul li a {
-      color: white;
-      text-decoration: none;
-    }
-
-    main {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .contatore {
-      font-size: 50px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    #imageContainer.hidden {
-      display: none;
-    }
-
-    #imageContainer img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    section {
-      padding: 20px;
-      margin: 20px 0;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -113,31 +51,7 @@
   </main>
 
   <!-- Script per il Contatore -->
-  <script>
-    // Inizializza il contatore a partire da 3
-    let countdown = 3;
-
-    // Funzione per gestire il countdown
-    function startCountdown() {
-      const countdownNumber = document.getElementById("countdownNumber");
-      const imageContainer = document.getElementById("imageContainer");
-
-      const interval = setInterval(() => {
-        // Decrementa il contatore
-        countdown -= 1;
-        countdownNumber.textContent = countdown;
-
-        // Quando il contatore arriva a zero, mostra l'immagine
-        if (countdown === 0) {
-          clearInterval(interval); // Ferma il contatore
-          imageContainer.style.display = "block"; // Mostra l'immagine
-        }
-      }, 1000); // Decrementa ogni secondo
-    }
-
-    // Avvia il countdown quando la pagina è pronta
-    window.onload = startCountdown;
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
