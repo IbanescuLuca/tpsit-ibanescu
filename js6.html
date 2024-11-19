@@ -1,64 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contatore Decrementale</title>
-    <style>
-        #hiddenImage {
-            display: none; /* Nascondi l'immagine inizialmente */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatore Decrementale con Immagine</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h1>Contatore Decrementale</h1>
-
+  <header>
     <nav>
-        <ul>
-            <li>HTML/CSS
-                <ul>
-                    <li><a href="#esercizio1">Esercizio 1</a></li>
-                    <li><a href="#esercizio2">Esercizio 2</a></li>
-                </ul>
-            </li>
-            <li>JavaScript
-                <ul>
-                    <li><a href="#esercizio1">Esercizio 1</a></li>
-                    <li><a href="#esercizio2">Esercizio 2</a></li>
-                </ul>
-            </li>
-        </ul>
+      <ul>
+        <li><a href="#html">HTML</a></li>
+        <li><a href="#css">CSS</a></li>
+        <li><a href="#javascript">JavaScript</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <div>
-        <h2 id="countdown">3</h2>
-        <button onclick="startCountdown()">Inizia Countdown</button>
+  <main>
+    <div class="countdown">
+      <p id="countdownNumber">3</p>
+    </div>
+    
+    <div id="imageContainer" class="hidden">
+      <img src="https://via.placeholder.com/300" alt="Immagine nascosta" id="image" />
     </div>
 
-    <div id="hiddenImage">
-        <img src="https://via.placeholder.com/150" alt="Immagine mostrata a zero">
-    </div>
+    <section id="html">
+      <h2>Esercizi HTML</h2>
+      <p>Contenuto degli esercizi HTML...</p>
+    </section>
 
-    <script>
-        let count = 3; // Inizializza il contatore
+    <section id="css">
+      <h2>Esercizi CSS</h2>
+      <p>Contenuto degli esercizi CSS...</p>
+    </section>
 
-        function startCountdown() {
-            const countdownElement = document.getElementById("countdown");
-            const hiddenImage = document.getElementById("hiddenImage");
+    <section id="javascript">
+      <h2>Esercizi JavaScript</h2>
+      <p>Contenuto degli esercizi JavaScript...</p>
+    </section>
+  </main>
 
-            const interval = setInterval(() => {
-                if (count > 0) {
-                    countdownElement.innerHTML = count; // Aggiorna il contatore
-                    count--; // Decrementa il contatore
-                } else {
-                    clearInterval(interval); // Ferma l'intervallo
-                    countdownElement.innerHTML = "0"; // Mostra zero
-                    hiddenImage.style.display = "block"; // Mostra l'immagine
-                }
-            }, 1000); // Aggiorna ogni secondo
-        }
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
