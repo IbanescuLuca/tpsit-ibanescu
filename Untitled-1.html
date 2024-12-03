@@ -3,76 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pulsanti Colorati</title>
+    <title>Gioco Morra Cinese</title>
     <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+        #out1, #out2 {
+            font-size: large;
+            color: brown;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .button {
-            border: none;
-            color: white;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px;
-            transition-duration: 0.4s;
+        .immagine {
+            width: 100px;
+            height: 100px;
             cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .button1 {
-            background-color: #04AA6D; /* Verde */
-        }
-
-        .button1:hover {
-            background-color: #038d56;
-        }
-
-        .button2 {
-            background-color: #008CBA; /* Blu */
-        }
-
-        .button2:hover {
-            background-color: #0078a0;
-        }
-
-        .button3 {
-            background-color: #ff0000; /* Rosso */
-        }
-
-        .button3:hover {
-            background-color: #e60000;
+        #punteggio {
+            font-size: large;
+            color: green;
         }
     </style>
 </head>
 <body>
 
-<h1>Pulsanti Colorati</h1>
-<button class="button button1" onclick="showMessage('Hai schiacciato il bottone verde!')">Verde</button>
-<button class="button button2" onclick="showMessage('Hai schiacciato il bottone blu!')">Blu</button>
-<button class="button button3" onclick="showMessage('Hai schiacciato il bottone rosso!')">Rosso</button>
+    <h2>Gioca a Morra Cinese!</h2>
 
-<script>
-function showMessage(message) {
-    alert(message);
-}
-</script>
+    <div>
+        <img src="https://tonazzosrl.it/images/Vascheinsassoscontornateok/178vascainsasso.jpg" alt="Sasso" id="sasso" class="immagine">
+        <img src="https://cdn.studenti.stbm.it/images/2021/06/16/storia-della-carta_300x200.jpeg" alt="Carta" id="carta" class="immagine">
+        <img src="https://estrosa.it/16788-large_default/forbice-hoffmann-piatta-65.jpg" alt="Forbice" id="forbice" class="immagine">
+    </div>
+
+    <p id="out1"></p>
+    <p id="out2"></p>
+    <p id="punteggio"></p>
+
+    <script>
+        // Array delle scelte
+        let morra = ["sasso", "carta", "forbice"];
+        let punteggioGiocatore = 0;
+        let punteggioBot = 0;
+
+        // Funzione per il calcolo del punteggio
+        function calcolaPunteggio(giocatore, bot) {
+            if (giocatore === bot) {
+                return "Pareggio!";
+            }
+            if (
+                (giocatore === "sasso" && bot === "forbice") ||
+                (giocatore === "carta" && bot === "sasso") ||
+                (giocatore === "forbice" && bot === "carta")
+            ) {
+                punteggioGiocatore++;
+                return "Hai vinto!";
+            } else {
+                punteggioBot++;
+                return "Hai perso!";
+            }
+        }
+
+        // Funzione per il gioco
+        function gioca(giocatore) {
+            // Generazione scelta del bot
+            let numeroCasuale = Math.floor(Math.random() * 3);
+            let sceltaBot = morra[numeroCasuale];
+
+            // Mostra la scelta del bot
+            document.getElementById("out2").innerHTML = "Il bot ha scelto: " + sceltaBot;
+
+            // Calcola il risultato
+            let risultato = calcolaPunteggio(giocatore, sceltaBot);
+            document.getElementById("out1").innerHTML = risultato;
+
+            // Mostra il punteggio
+            document.getElementById("punteggio").innerHTML = `Punteggio - Tu: ${punteggioGiocatore}, Bot: ${punteggioBot}`;
+
+            // Temporizzatore per il risultato
+            setTimeout(function() {
+                alert("Risultato del round: " + risultato);
+            }, 1000); // 1 secondo di attesa
+        }
+
+        // Assegnazione degli eventi di clic sulle immagini
+        document.getElementById("sasso").onclick = function() {
+            gioca("sasso");
+        };
+        document.getElementById("carta").onclick = function() {
+            gioca("carta");
+        };
+        document.getElementById("forbice").onclick = function() {
+            gioca("forbice");
+        };
+
+    </script>
 
 </body>
 </html>
