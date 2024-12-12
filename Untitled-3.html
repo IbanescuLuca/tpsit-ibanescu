@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrazione Numeri</title>
+</head>
+<body>
+
+    <h1>Estrazione Numeri</h1>
+    <p id="numero">Numero: -</p>
+    <p id="numeri">Numeri generati: </p>
+    <p id="media">Media: 0</p>
+
+    <script>
+        let numeri = [];
+
+        function estraiNumero() {
+            let numero = Math.floor(Math.random() * 90) + 1;
+            numeri.push(numero);
+            document.getElementById("numero").textContent = "Numero: " + numero;
+            document.getElementById("numeri").textContent = "Numeri generati: " + numeri.join(', ');
+            document.getElementById("media").textContent = "Media: " + (numeri.reduce((a, b) => a + b) / numeri.length).toFixed(2);
+        }
+
+        setInterval(estraiNumero, 3000);
+    </script>
+
+</body>
+</html>
