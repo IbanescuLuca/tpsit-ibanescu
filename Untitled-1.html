@@ -3,97 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco Morra Cinese</title>
-    <style>
-        #out1, #out2 {
-            font-size: large;
-            color: brown;
-        }
-
-        .immagine {
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-        }
-
-        #punteggio {
-            font-size: large;
-            color: green;
-        }
-    </style>
+    <title>Numero Casuale</title>
 </head>
 <body>
-
-    <h2>Gioca a Morra Cinese!</h2>
-
-    <div>
-        <img src="https://tonazzosrl.it/images/Vascheinsassoscontornateok/178vascainsasso.jpg" alt="Sasso" id="sasso" class="immagine">
-        <img src="https://cdn.studenti.stbm.it/images/2021/06/16/storia-della-carta_300x200.jpeg" alt="Carta" id="carta" class="immagine">
-        <img src="https://estrosa.it/16788-large_default/forbice-hoffmann-piatta-65.jpg" alt="Forbice" id="forbice" class="immagine">
-    </div>
-
-    <p id="out1"></p>
-    <p id="out2"></p>
-    <p id="punteggio"></p>
+    <h1>Numero Casuale</h1>
+    <div id="output"></div>
 
     <script>
-        // Array delle scelte
-        let morra = ["sasso", "carta", "forbice"];
-        let punteggioGiocatore = 0;
-        let punteggioBot = 0;
-
-        // Funzione per il calcolo del punteggio
-        function calcolaPunteggio(giocatore, bot) {
-            if (giocatore === bot) {
-                return "Pareggio!";
+        function èPrimo(numero) {
+            if (numero < 2) return false;
+            for (let i = 2; i <= Math.sqrt(numero); i++) {
+                if (numero % i === 0) return false;
             }
-            if (
-                (giocatore === "sasso" && bot === "forbice") ||
-                (giocatore === "carta" && bot === "sasso") ||
-                (giocatore === "forbice" && bot === "carta")
-            ) {
-                punteggioGiocatore++;
-                return "Hai vinto!";
-            } else {
-                punteggioBot++;
-                return "Hai perso!";
-            }
+            return true;
         }
 
-        // Funzione per il gioco
-        function gioca(giocatore) {
-            // Generazione scelta del bot
-            let numeroCasuale = Math.floor(Math.random() * 3);
-            let sceltaBot = morra[numeroCasuale];
+        function generaNumero() {
+            const numero = Math.floor(Math.random() * 1000) + 1;
+            const parità = (numero % 2 === 0) ? "Pari" : "Dispari";
+            const èPrimoNumero = èPrimo(numero) ? "Primo" : "Non primo";
+            const doppio = numero * 2;
+            const metà = numero / 2;
+            const complemento = 1000 - numero;
+            const sommaVicini = (numero - 1) + numero + (numero + 1);
+            const moltiplicatoPi = numero * 3.14;
 
-            // Mostra la scelta del bot
-            document.getElementById("out2").innerHTML = "Il bot ha scelto: " + sceltaBot;
-
-            // Calcola il risultato
-            let risultato = calcolaPunteggio(giocatore, sceltaBot);
-            document.getElementById("out1").innerHTML = risultato;
-
-            // Mostra il punteggio
-            document.getElementById("punteggio").innerHTML = `Punteggio - Tu: ${punteggioGiocatore}, Bot: ${punteggioBot}`;
-
-            // Temporizzatore per il risultato
-            setTimeout(function() {
-                alert("Risultato del round: " + risultato);
-            }, 1000); // 1 secondo di attesa
+            document.getElementById("output").innerHTML = `
+                Numero: ${numero}<br>
+                Parità: ${parità}<br>
+                È Primo: ${èPrimoNumero}<br>
+                Doppio: ${doppio}<br>
+                Metà: ${metà}<br>
+                Complemento: ${complemento}<br>
+                Somma con vicini: ${sommaVicini}<br>
+                Moltiplicato per 3.14: ${moltiplicatoPi.toFixed(2)}<br><br>
+            `;
         }
 
-        // Assegnazione degli eventi di clic sulle immagini
-        document.getElementById("sasso").onclick = function() {
-            gioca("sasso");
-        };
-        document.getElementById("carta").onclick = function() {
-            gioca("carta");
-        };
-        document.getElementById("forbice").onclick = function() {
-            gioca("forbice");
-        };
-
+        setInterval(generaNumero, 5000);
     </script>
-
 </body>
 </html>
