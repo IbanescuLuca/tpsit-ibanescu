@@ -18,48 +18,53 @@
             font-size: 20px;
             margin-top: 20px;
         }
+        #score {
+            font-size: large;
+            color: green;
+        }
     </style>
 </head>
 <body>
 
     <h1>Gioco della Morra Cinese</h1>
+
+    <!-- Immagini cliccabili per le scelte -->
     <div>
-        <!-- Immagini cliccabili -->
-        <img src="https://www.galleriailvicolo.it/wp-content/uploads/2021/01/dsc0247.png" alt="Sasso" id="sasso" onclick="userChoice('sasso')">
-        <img src="https://cdn.studenti.stbm.it/images/2021/06/16/storia-della-carta-orig.jpeg" alt="Carta" id="carta" onclick="userChoice('carta')">
-        <img src="https://estrosa.it/16788-large_default/forbice-hoffmann-piatta-65.jpg" alt="Forbice" id="forbice" onclick="userChoice('forbice')">
+        <img src="https://www.galleriailvicolo.it/wp-content/uploads/2021/01/dsc0247.png" alt="Sasso" id="sasso" onclick="makeUserChoice('sasso')">
+        <img src="https://cdn.studenti.stbm.it/images/2021/06/16/storia-della-carta-orig.jpeg" alt="Carta" id="carta" onclick="makeUserChoice('carta')">
+        <img src="https://estrosa.it/16788-large_default/forbice-hoffmann-piatta-65.jpg" alt="Forbice" id="forbice" onclick="makeUserChoice('forbice')">
     </div>
-    
+
     <p id="out1"></p>
     <p id="out2"></p>
     <p id="gameResult"></p>
+    <p id="score"></p>
 
 <script>
-
+// Array con le scelte
 let morra = ["sasso", "carta", "forbice"];
 let userChoice;
 let botChoice;
 let userScore = 0;
 let botScore = 0;
 
-// Messaggio iniziale
-document.getElementById("out1").innerHTML = "Scegli una delle opzioni sopra per iniziare a giocare!";
-
-// Funzione per gestire la scelta dell'utente
-function userChoice(selected) {
+// Funzione che gestisce la scelta dell'utente (rinominata)
+function makeUserChoice(selected) {
+    // Imposta la scelta dell'utente
     userChoice = selected;
     document.getElementById("out1").innerHTML = `Hai scelto: ${userChoice}`;
-    
+
     // Il bot fa una scelta casuale
     botChoice = morra[Math.floor(Math.random() * 3)];
-    document.getElementById("out2").innerHTML = `Il bot ha scelto: ${botChoice}`;
-    
-    // Tempo di attesa per simulare il "temporizzatore"
+    document.getElementById("out2").innerHTML = `Il bot sta pensando...`;
+
+    // Simuliamo un temporizzatore per dare tempo al bot di "pensare"
     setTimeout(() => {
+        document.getElementById("out2").innerHTML = `Il bot ha scelto: ${botChoice}`;
         let result = determineWinner(userChoice, botChoice);
         document.getElementById("gameResult").innerHTML = result;
         updateScore();
-    }, 1000); // 1 secondo di attesa
+    }, 1000); // Tempo di attesa di 1 secondo
 }
 
 // Funzione per determinare il vincitore
@@ -82,11 +87,10 @@ function determineWinner(user, bot) {
 
 // Funzione per aggiornare il punteggio
 function updateScore() {
-    // Aggiorno il punteggio dopo ogni partita
-    document.getElementById("out2").innerHTML += `<br><br>Punteggio:<br>Tu: ${userScore} | Bot: ${botScore}`;
+    document.getElementById("score").innerHTML = `Punteggio: <br>Tu: ${userScore} | Bot: ${botScore}`;
 }
-
 </script>
 
 </body>
 </html>
+
