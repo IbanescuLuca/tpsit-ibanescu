@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morra Cinese</title>
+    <style>
+        #out2 {
+            font-size: large;
+            color: brown;
+        }
+        img {
+            width: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #gameResult {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gioco della Morra Cinese</h1>
+    <div>
+        <img src="https://www.galleriailvicolo.it/wp-content/uploads/2021/01/dsc0247.png" alt="Sasso" id="sasso" onclick="userChoice('sasso')">
+        <img src="https://cdn.studenti.stbm.it/images/2021/06/16/storia-della-carta-orig.jpeg" alt="Carta" id="carta" onclick="userChoice('carta')">
+        <img src="https://estrosa.it/16788-large_default/forbice-hoffmann-piatta-65.jpg" alt="Forbice" id="forbice" onclick="userChoice('forbice')">
+    </div>
+    
+    <p id="out1"></p>
+    <p id="out2"></p>
+    <p id="gameResult"></p>
+
+<script>
+
+let morra = ["sasso", "carta", "forbice"];
+let userChoice;
+let botChoice;
+let userScore = 0;
+let botScore = 0;
+
+document.getElementById("out1").innerHTML = "Scegli una delle opzioni sopra per iniziare a giocare!";
+
+function userChoice(selected) {
+    userChoice = selected;
+    document.getElementById("out1").innerHTML = `Hai scelto: ${userChoice}`;
+    
+    botChoice = morra[Math.floor(Math.random() * 3)];
+    document.getElementById("out2").innerHTML = `Il bot ha scelto: ${botChoice}`;
+    
+    setTimeout(() => {
+        let result = determineWinner(userChoice, botChoice);
+        document.getElementById("gameResult").innerHTML = result;
+        updateScore();
+    }, 1000); // 1 secondo di attesa per simulare il "temporizzatore"
+}
+
+function determineWinner(user, bot) {
+    if (user === bot) {
+        return "È un pareggio!";
+    }
+    if (
+        (user === "sasso" && bot === "forbice") ||
+        (user === "carta" && bot === "sasso") ||
+        (user === "forbice" && bot === "carta")
+    ) {
+        userScore++;
+        return "Hai vinto!";
+    } else {
+        botScore++;
+        return "Il bot ha vinto!";
+    }
+}
+
+function updateScore() {
+    document.getElementById("out2").innerHTML += `<br><br>Punteggio:<br>Tu: ${userScore} | Bot: ${botScore}`;
+}
+
+</script>
+
+</body>
+</html>
