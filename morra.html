@@ -41,22 +41,27 @@ let botChoice;
 let userScore = 0;
 let botScore = 0;
 
+// Messaggio iniziale
 document.getElementById("out1").innerHTML = "Scegli una delle opzioni sopra per iniziare a giocare!";
 
+// Funzione per gestire la scelta dell'utente
 function userChoice(selected) {
     userChoice = selected;
     document.getElementById("out1").innerHTML = `Hai scelto: ${userChoice}`;
     
+    // Il bot fa una scelta casuale
     botChoice = morra[Math.floor(Math.random() * 3)];
     document.getElementById("out2").innerHTML = `Il bot ha scelto: ${botChoice}`;
     
+    // Tempo di attesa per simulare il "temporizzatore"
     setTimeout(() => {
         let result = determineWinner(userChoice, botChoice);
         document.getElementById("gameResult").innerHTML = result;
         updateScore();
-    }, 1000); // 1 secondo di attesa per simulare il "temporizzatore"
+    }, 1000); // 1 secondo di attesa
 }
 
+// Funzione per determinare il vincitore
 function determineWinner(user, bot) {
     if (user === bot) {
         return "È un pareggio!";
@@ -74,7 +79,9 @@ function determineWinner(user, bot) {
     }
 }
 
+// Funzione per aggiornare il punteggio
 function updateScore() {
+    // Aggiorno il punteggio dopo ogni partita
     document.getElementById("out2").innerHTML += `<br><br>Punteggio:<br>Tu: ${userScore} | Bot: ${botScore}`;
 }
 
