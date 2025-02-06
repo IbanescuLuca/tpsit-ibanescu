@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript time salva bottoni</title>
+</head>
+<body>
+    <p>Clicca un bottone</p>
+    <button onclick="dataeora(1)">Bottone 1</button>        
+    <button onclick="dataeora(2)">Bottone 2</button>
+    <button onclick="dataeora(3)">Bottone 3</button>
+    <button onclick="dataeora(4)">Bottone 4</button>  
+
+    <p id="dataora"></p>
+    <p id="intervalli"></p>
+
+    <script>
+        let tempoIniziale = null;
+        let intervalli = [];
+
+        function dataeora(bottone) {
+            let data = new Date();
+            let timestamp = data.getTime();
+            let dataora = data.toLocaleString('it-IT');
+
+            document.getElementById('dataora').textContent = `Data e ora: ${dataora} (Bottone ${bottone})`;
+
+            if (tempoIniziale === null) {
+                tempoIniziale = timestamp;
+            } else {
+                let diff = timestamp - tempoIniziale;
+                let secondi = (diff / 1000).toFixed(3); 
+                intervalli.push(secondi + "s");
+                document.getElementById('intervalli').textContent = `Intervalli: ${intervalli.join(', ')}`;
+            }
+        }
+    </script>
+</body>
+</html>
