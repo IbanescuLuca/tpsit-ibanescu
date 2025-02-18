@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griglie 2x2 e 3x3</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .grid-2x2, .grid-3x3 {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .grid-2x2 {
+            grid-template-columns: repeat(2, 100px);
+            grid-template-rows: repeat(2, 100px);
+        }
+        .grid-2x2 div {
+            width: 100px;
+            height: 100px;
+        }
+        .cell-1 { background-color: red; }
+        .cell-2 { background-color: blue; }
+        .cell-3 { background-color: green; }
+        .cell-4 { background-color: yellow; }
+        .grid-3x3 {
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+        }
+        .grid-3x3 div {
+            width: 100px;
+            height: 100px;
+        }
+        .cell-5 { background-color: purple; }
+        .cell-6 { background-color: orange; }
+        .cell-7 { background-color: pink; }
+        .cell-8 { background-color: brown; }
+        .cell-9 { background-color: gray; }
+    </style>
+</head>
+<body>
+    <div class="grid-2x2">
+        <div class="cell-1"></div>
+        <div class="cell-2"></div>
+        <div class="cell-3"></div>
+        <div class="cell-4"></div>
+    </div>
+    <div class="grid-3x3">
+        <div class="cell-1"></div>
+        <div class="cell-2"></div>
+        <div class="cell-3"></div>
+        <div class="cell-4"></div>
+        <div class="cell-5"></div>
+        <div class="cell-6"></div>
+        <div class="cell-7"></div>
+        <div class="cell-8"></div>
+        <div class="cell-9"></div>
+    </div>
+</body>
+</html>
