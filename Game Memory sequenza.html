@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Sequenziale - Gioco</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .grid-item {
+      width: 100px;
+      height: 100px;
+      background-color: #6c757d;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .active {
+      background-color: #28a745;
+    }
+    .btn-start {
+      margin-top: 20px;
+    }
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container text-center">
+  <h1 class="mt-5">Memory Sequenziale</h1>
+  <p class="lead">Riproduci la sequenza crescente di pulsanti illuminati!</p>
+
+  <button id="start-btn" class="btn btn-primary btn-start">Start</button>
+
+  <div id="status" class="status"></div>
+
+  <div id="grid" class="grid-container mt-4"></div>
+
+  <div id="score" class="status"></div>
+</div>
+
+<script>
+  const gridSize = 4; // 4x4 grid
+  const grid = document.getElementById('grid');
+  const status = document.getElementById('status');
+  const scoreElement = document.getElementById('score');
+  const startBtn = document.getElementById('start-btn');
+
+  let sequence = [];
+  let userSequence = [];
+  let score = 0;
+  let gameActive = false;
+
+  // Genera una griglia di pulsanti
+  function createGrid() {
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const button = document.createElement('div');
+      button.classList.add('grid-item');
+      button.dataset.index = i;
+      button.addEventListener('click', () => handleUserClick(i));
+      grid.appendChild(button);
+    }
+  }
+
+  // Inizia un nuovo gioco
+  function startGame() {
+    sequence = [];
+    userSequence = [];
+    score = 0;
+    gameActive = true;
+    updateScore();
+    status.textContent = "Segui la sequenza!";
+    nextRound();
+  }
+
+  // Aggiungi un nuovo pulsante alla sequenza
+  function nextRound() {
+    userSequence = [];
+    sequence.push(Math.floor(Math.random() * gridSize * gridSize));
+    showSequence(0);
+  }
+
+  // Mostra la sequenza di pulsanti
+  function showSequence(index) {
+    if (index < sequence.length) {
+      const button = document.querySelector(`.grid-item[data-index="${sequence[index]}"]`);
+      button.classList.add('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+        setTimeout(() => showSequence(index + 1), 500);
+      }, 500);
+    } else {
+      enableUserInput();
+    }
+  }
+
+  // Abilita l'input dell'utente
+  function enableUserInput() {
+    grid.querySelectorAll('.grid-item').forEach(button => {
+      button.classList.remove('disabled');
+    });
+    status.textContent = "Ora tocca i pulsanti nell'ordine giusto!";
+  }
+
+  // Gestisci il click dell'utente
+  function handleUserClick(index) {
+    if (!gameActive) return;
+
+    userSequence.push(index);
+    const correct = userSequence[userSequence.length - 1] === sequence[userSequence.length - 1];
+
+    if (!correct) {
+      status.textContent = "Hai sbagliato! Gioco finito.";
+      gameActive = false;
+      return;
+    }
+
+    if (userSequence.length === sequence.length) {
+      score++;
+      updateScore();
+      setTimeout(nextRound, 1000);
+    }
+  }
+
+  // Aggiorna il punteggio
+  function updateScore() {
+    scoreElement.textContent = `Punteggio: ${score}`;
+  }
+
+  // Disabilita i pulsanti per impedire click durante la sequenza
+  function disableUserInput() {
+    grid.querySelectorAll('.grid-item').forEach(button => {
+      button.classList.add('disabled');
+    });
+  }
+
+  // Gestisci l'evento di start
+  startBtn.addEventListener('click', () => {
+    if (gameActive) {
+      return;
+    }
+    startGame();
+  });
+
+  createGrid();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
