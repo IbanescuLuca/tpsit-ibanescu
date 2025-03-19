@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esercizio stringhe</title>
+</head>
+<body>
+
+    <h2>scrivi due stringhe</h2>
+    
+    <input type="text" id="stringa1"><br><br>
+    <input type="text" id="stringa2"><br><br>
+
+    <button onclick="elaboraStringhe()">fai calcoli</button>
+
+    <h3>risultati:</h3>
+    <p id="lunghezza1"></p>
+    <p id="lunghezza2"></p>
+    <p id="inverso1"></p>
+    <p id="inverso2"></p>
+    <p id="unione"></p>
+    <p id="sommaLunghezze"></p>
+
+    <script>
+        function elaboraStringhe() {
+            const stringa1 = document.getElementById('stringa1').value;
+            const stringa2 = document.getElementById('stringa2').value;
+
+            document.getElementById('lunghezza1').innerText = `lunghezza stringa 1: ${stringa1.length}`;
+            document.getElementById('lunghezza2').innerText = `lunghezza stringa 2: ${stringa2.length}`;
+
+            function stringaInversa(str) {
+                return str.split('').reverse().join('');
+            }
+
+            document.getElementById('inverso1').innerText = `stringa 1 al contrario: ${stringaInversa(stringa1)}`;
+            document.getElementById('inverso2').innerText = `stringa 2 al contrario: ${stringaInversa(stringa2)}`;
+
+            function unisciStringhe(str1, str2) {
+                return str1 + str2;
+            }
+
+            document.getElementById('unione').innerText = `unione delle due stringhe: ${unisciStringhe(stringa1, stringa2)}`;
+
+            const sommaLunghezze = stringa1.length + stringa2.length;
+            document.getElementById('sommaLunghezze').innerText = `somma lunghezze: ${sommaLunghezze}`;
+
+            if (stringa2.length > 20) {
+                document.getElementById('sommaLunghezze').innerText += " - stringa 2 troppo lunga!";
+            }
+        }
+    </script>
+
+</body>
+</html>
