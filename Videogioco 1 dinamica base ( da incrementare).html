@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Speed Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #111; color: white; text-align: center; }
+        #gameArea { position: relative; width: 100vw; height: 80vh; background-color: #222; margin-top: 20px; }
+        .target { position: absolute; width: 40px; height: 40px; background-color: white; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Click Speed Game</h1>
+        <div id="playerInfo">
+            <input type="text" id="name" placeholder="Nome" class="form-control mb-2">
+            <input type="email" id="email" placeholder="Email" class="form-control mb-2">
+            <button class="btn btn-primary" onclick="startGame()">Inizia</button>
+        </div>
+        <div id="gameArea" onclick="penaltyClick()"></div>
+        <div id="result" class="mt-3"></div>
+    </div>
+
+    <script>
+        let clicks = [], startTime, level = 1, target, clickCount = 0;
+        const levels = [2000, 1800, 1500, 1200, 1000];
+
+        function startGame() {
+            document.getElementById('playerInfo').style.display = 'none';
+            clicks = [];
+            clickCount = 0;
+            startTime = Date.now();
+            spawnTarget();
+        }
+
+        function spawnTarget() {
+            if (clicks.length >= 10) return showResults();
+
+            if (target) target.remove();
+            target = document.createElement("div");
+            target.classList.add("target");
+            target.style.top = `${Math.random() * 80}%`;
+            target.style.left = `${Math.random() * 90}%`;
+            target.style.backgroundColor = getRandomColor();
+            target.onclick = registerClick;
+            document.getElementById("gameArea").appendChild(target);
+        }
+
+        function registerClick() {
+            clicks.push(Date.now() - startTime);
+            clickCount++;
+            if (clickCount % 2 === 0) {
+                if (target) target.remove();
+                setTimeout(spawnTarget, 1000); // Riapparizione dopo 1 secondo
+            } else {
+                spawnTarget();
+            }
+        }
+
+        function penaltyClick() {
+            clicks.push(500); // penalità se clicca fuori
+        }
+
+        function showResults() {
+            let total = clicks.reduce((a, b) => a + b, 0);
+            let avg = total / clicks.length;
+            document.getElementById("result").innerHTML = `
+                <h2>Risultati</h2>
+                <p>Nome: ${document.getElementById('name').value}</p>
+                <p>Email: ${document.getElementById('email').value}</p>
+                <p>Tempo totale: ${total} ms</p>
+                <p>Tempo medio: ${avg.toFixed(2)} ms</p>
+            `;
+        }
+
+        function getRandomColor() {
+            const colors = ['white', 'red', 'blue', 'green', 'yellow'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
