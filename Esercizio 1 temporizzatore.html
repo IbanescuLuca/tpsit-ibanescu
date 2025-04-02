@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div Casuali</title>
+    <style>
+        .div-casuale {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        #blu {
+            background-color: blue;
+        }
+        #giallo {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<div id="blu" class="div-casuale"></div>
+<div id="giallo" class="div-casuale"></div>
+
+<script>
+    // Funzione per ottenere una posizione casuale all'interno della finestra
+    function getRandomPosition() {
+        const x = Math.floor(Math.random() * (window.innerWidth - 100));
+        const y = Math.floor(Math.random() * (window.innerHeight - 100));
+        return { x, y };
+    }
+
+    // Funzione per aggiornare la posizione dei div
+    function updatePosition() {
+        const blu = document.getElementById('blu');
+        const giallo = document.getElementById('giallo');
+
+        // Posizione casuale per entrambi i div
+        const bluPos = getRandomPosition();
+        const gialloPos = getRandomPosition();
+
+        blu.style.left = bluPos.x + 'px';
+        blu.style.top = bluPos.y + 'px';
+        
+        giallo.style.left = gialloPos.x + 'px';
+        giallo.style.top = gialloPos.y + 'px';
+
+        // Controlla se i div si sovrappongono
+        if (isOverlapping(blu, giallo)) {
+            blu.style.backgroundColor = 'red';
+            giallo.style.backgroundColor = 'red';
+        } else {
+            blu.style.backgroundColor = 'blue';
+            giallo.style.backgroundColor = 'yellow';
+        }
+    }
+
+    // Funzione per verificare se due div si sovrappongono
+    function isOverlapping(div1, div2) {
+        const rect1 = div1.getBoundingClientRect();
+        const rect2 = div2.getBoundingClientRect();
+
+        return !(rect1.right < rect2.left || 
+                 rect1.left > rect2.right || 
+                 rect1.bottom < rect2.top || 
+                 rect1.top > rect2.bottom);
+    }
+
+    // Aggiorna la posizione ogni 2 secondi
+    setInterval(updatePosition, 2000);
+</script>
+
+</body>
+</html>
