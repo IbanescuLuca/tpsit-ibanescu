@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Temporizzatore - Movimento Quadrato</title>
+  <style>
+    #container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 2px solid black;
+      margin-bottom: 40px;
+    }
+
+    #square {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Movimento del quadrato in senso orario</h2>
+<div id="container">
+  <div id="square"></div>
+</div>
+
+<script>
+  const square = document.getElementById('square');
+  let x = 0, y = 0, direction = 'right';
+
+  setInterval(() => {
+    if (direction === 'right') {
+      x += 5;
+      if (x >= 350) direction = 'down';
+    } else if (direction === 'down') {
+      y += 5;
+      if (y >= 350) direction = 'left';
+    } else if (direction === 'left') {
+      x -= 5;
+      if (x <= 0) direction = 'up';
+    } else if (direction === 'up') {
+      y -= 5;
+      if (y <= 0) direction = 'right';
+    }
+
+    square.style.left = `${x}px`;
+    square.style.top = `${y}px`;
+  }, 30);
+</script>
+
+</body>
+</html>

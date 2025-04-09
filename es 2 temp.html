@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Temporizzatore - Quadrati in Fila</title>
+  <style>
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .box {
+      width: 50px;
+      height: 50px;
+      background-color: yellow;
+    }
+
+    .red {
+      background-color: red !important;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Scorrimento del quadrato rosso</h2>
+<div class="row" id="line">
+  <div class="box red"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+</div>
+
+<script>
+  const boxes = document.querySelectorAll('.box');
+  let redIndex = 0;
+
+  setInterval(() => {
+    boxes[redIndex].classList.remove('red');
+    redIndex = (redIndex + 1) % boxes.length;
+    boxes[redIndex].classList.add('red');
+  }, 500);
+</script>
+
+</body>
+</html>
