@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Numeri Casuali</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="grafico" width="600" height="300"></canvas>
+
+  <script>
+    const numeri = [];
+    const mediaRange = 0.5;
+
+    const grafico = new Chart(document.getElementById('grafico'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Numeri Casuali',
+          data: [],
+          borderColor: 'blue',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        animation: false,
+        scales: {
+          y: {
+            min: 0,
+            max: 1
+          }
+        }
+      }
+    });
+
+    setInterval(() => {
+      const n = Math.random();
+      numeri.push(n);
+
+      if (numeri.length % 50 === 0) {
+        const ultimi50 = numeri.slice(-50);
+        const media = ultimi50.reduce((a, b) => a + b, 0) / 50;
+        console.log('Media ultimi 50:', media);
+      }
+
+      aggiornaGrafico();
+    }, 500);
+
+    function aggiornaGrafico() {
+      grafico.data.labels = numeri.map((_, i) => i);
+      grafico.data.datasets[0].data = numeri;
+      grafico.update();
+    }
+  </script>
+</body>
+</html>
