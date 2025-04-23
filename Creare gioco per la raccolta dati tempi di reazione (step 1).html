@@ -31,7 +31,7 @@
   let reactionTimes = [];
   let startTime;
   let rounds = 0;
-  const maxRounds = 5;
+  const maxRounds = 10; // Aumentato il numero di round a 10
 
   function startRound() {
     square.style.display = "none";
@@ -57,7 +57,10 @@
       setTimeout(startRound, 1000);
     } else {
       const avg = Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length);
-      info.textContent += `\n🎉 Gioco finito! Media: ${avg} ms`;
+      info.textContent = `🎉 Gioco finito! Media: ${avg} ms\n\nTempi di reazione per ogni round:`;
+      reactionTimes.forEach((time, index) => {
+        info.textContent += `\nRound ${index + 1}: ${time} ms`;
+      });
       square.style.display = "none";
     }
   });
