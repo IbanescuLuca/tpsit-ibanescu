@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Clicca il Rosso!</title>
+  <style>
+    #square {
+      width: 150px;
+      height: 150px;
+      background-color: grey;
+      margin: 100px auto;
+      display: none;
+      cursor: pointer;
+    }
+    body {
+      text-align: center;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🟥 Clicca il Quadrato Rosso!</h1>
+<div id="square"></div>
+<p id="info"></p>
+
+<script>
+  const square = document.getElementById("square");
+  const info = document.getElementById("info");
+
+  let reactionTimes = [];
+  let startTime;
+  let rounds = 0;
+  const maxRounds = 5;
+
+  function startRound() {
+    square.style.display = "none";
+    info.textContent = "Attendi che diventi rosso...";
+
+    const delay = Math.random() * 2000 + 1000; // 1-3 sec
+
+    setTimeout(() => {
+      square.style.backgroundColor = "red";
+      square.style.display = "block";
+      startTime = Date.now();
+    }, delay);
+  }
+
+  square.addEventListener("click", () => {
+    const reaction = Date.now() - startTime;
+    reactionTimes.push(reaction);
+    rounds++;
+
+    info.textContent = `⏱ Tempo di reazione: ${reaction} ms`;
+
+    if (rounds < maxRounds) {
+      setTimeout(startRound, 1000);
+    } else {
+      const avg = Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length);
+      info.textContent += `\n🎉 Gioco finito! Media: ${avg} ms`;
+      square.style.display = "none";
+    }
+  });
+
+  // Utilizzo di setInterval per ripetere la funzione startRound ogni 4 secondi
+  const intervalId = setInterval(() => {
+    if (rounds < maxRounds) {
+      startRound();
+    } else {
+      clearInterval(intervalId); // Ferma il setInterval quando il gioco finisce
+    }
+  }, 4000); // Avvia una nuova round ogni 4 secondi
+
+  // Avvio gioco
+  startRound();
+</script>
+
+</body>
+</html>
