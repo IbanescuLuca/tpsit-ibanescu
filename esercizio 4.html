@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esercizi Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>1. Controllo Maggiore Età</h2>
+    <input type="number" v-model="eta" placeholder="Inserisci la tua età">
+    <p>{{ messaggioEta }}</p>
+
+    <hr>
+
+    <h2>2. Carrello Semplice</h2>
+    <ul>
+      <li v-for="(p, i) in carrello" :key="i">
+        {{ p.nome }} - €{{ p.prezzo }}
+      </li>
+    </ul>
+    <p><strong>Totale carrello:</strong> €{{ totaleCarrello }}</p>
+
+    <hr>
+
+    <h2>3. Validazione Username</h2>
+    <input type="text" v-model="username" placeholder="Inserisci username">
+    <p v-if="erroreUsername" style="color: red;">{{ erroreUsername }}</p>
+
+    <hr>
+
+    <h2>4. Salvataggio Automatico</h2>
+    <textarea v-model="testo" rows="4" cols="40" placeholder="Scrivi qualcosa..."></textarea>
+    <p v-if="salvataggioInCorso">💾 Sto salvando...</p>
+    <p v-else-if="messaggioSalvato">✅ Salvato!</p>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, watch } = Vue;
+
+    createApp({
+      setup() {
+        // 1. Controllo maggiore età
+        const eta = ref(0);
+        const messaggioEta = computed(() => eta.value >= 18 ? "Maggiorenne" : "Minorenne");
+
+        // 2. Carrello semplice
+        const carrello = ref([
+          { nome: "Mela", prezzo: 1 },
+          { nome: "Banana", prezzo: 2 },
+          { nome: "Arancia", prezzo: 1.5 }
+        ]);
+        const totaleCarrello = computed(() =>
+          carrello.value.reduce((tot, p) => tot + p.prezzo, 0)
+        );
+
+        // 3. Validazione username
+        const username = ref("");
+        const erroreUsername = ref("");
+        watch(username, (nuovoValore) => {
+          if (nuovoValore.length > 0 && nuovoValore.length < 5) {
+            erroreUsername.value = "L'username deve contenere almeno 5 caratteri.";
+          } else {
+            erroreUsername.value = "";
+          }
+        });
+
+        // 4. Salvataggio automatico
+        const testo = ref("");
+        const salvataggioInCorso = ref(false);
+        const messaggioSalvato = ref(false);
+
+        let timer = null;
+        watch(testo, () => {
+          salvataggioInCorso.value = true;
+          messaggioSalvato.value = false;
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            salvataggioInCorso.value = false;
+            messaggioSalvato.value = true;
+          }, 1000);
+        });
+
+        return {
+          eta,
+          messaggioEta,
+          carrello,
+          totaleCarrello,
+          username,
+          erroreUsername,
+          testo,
+          salvataggioInCorso,
+          messaggioSalvato
+        };
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>
