@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vue.js Facile</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .message { padding: 10px; color: white; margin-bottom: 10px; border-radius: 5px; }
+    .success { background-color: green; }
+    .error { background-color: red; }
+    .avatar { border-radius: 50%; margin-bottom: 10px; border: 1px solid #ccc; }
+    input { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ESERCIZIO 1 -->
+  <div id="app1">
+    <h2>Messaggio Stato</h2>
+    <div :class="['message', status]">{{ message }}</div>
+    <button @click="status = 'success'">Successo</button>
+    <button @click="status = 'error'">Errore</button>
+  </div>
+
+  <!-- ESERCIZIO 2 -->
+  <div id="app2">
+    <h2>Avatar Semplice</h2>
+    <div class="avatar" :style="{width: width + 'px', height: height + 'px', backgroundColor: color}"></div>
+    <div>
+      <label>Larghezza: <input type="number" v-model="width" /></label><br/>
+      <label>Altezza: <input type="number" v-model="height" /></label><br/>
+      <label>Colore: <input type="color" v-model="color" /></label>
+    </div>
+  </div>
+
+  <!-- ESERCIZIO 3 -->
+  <div id="app3">
+    <h2>Componenti Base</h2>
+    <saluto-utente></saluto-utente>
+    <info-card></info-card>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    // Esercizio 1
+    createApp({
+      data() {
+        return {
+          message: 'Messaggio di stato',
+          status: ''
+        }
+      }
+    }).mount('#app1')
+
+    // Esercizio 2
+    createApp({
+      data() {
+        return {
+          width: 100,
+          height: 100,
+          color: '#00bfff'
+        }
+      }
+    }).mount('#app2')
+
+    // Esercizio 3
+    const app3 = createApp({})
+
+    app3.component('saluto-utente', {
+      template: `<div>Benvenuto!</div>`
+    })
+
+    app3.component('info-card', {
+      template: `
+        <div>
+          <h3>Titolo Card</h3>
+          <p>Contenuto semplice.</p>
+        </div>
+      `
+    })
+
+    app3.mount('#app3')
+  </script>
+</body>
+</html>
