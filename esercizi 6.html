@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Componenti Vue - Props ed Eventi</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 5px 0;
+    }
+    .alert.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .alert.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .star {
+      font-size: 24px;
+      cursor: pointer;
+      color: gray;
+    }
+    .star.active {
+      color: gold;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>1️⃣ Product Card con Props</h2>
+    <div style="display:flex;">
+      <product-card 
+        v-for="(p, index) in prodotti"
+        :key="index"
+        :nome-prodotto="p.nome"
+        :prezzo="p.prezzo">
+      </product-card>
+    </div>
+
+    <h2>2️⃣ Alert Box con classe dinamica</h2>
+    <alert-box tipo="success" messaggio="Operazione completata con successo!"></alert-box>
+    <alert-box tipo="error" messaggio="Si è verificato un errore!"></alert-box>
+
+    <h2>3️⃣ Modale con evento di chiusura</h2>
+    <button @click="modaleAperta = true">Apri Modale</button>
+    <modal-dialog v-if="modaleAperta" @chiudi="modaleAperta = false"></modal-dialog>
+
+    <h2>4️⃣ Valutazione a Stelle</h2>
+    <star-rating @imposta-valutazione="valutazione = $event"></star-rating>
+    <p>Valutazione selezionata: {{ valutazione }}</p>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          prodotti: [
+            { nome: 'Mela', prezzo: 1.5 },
+            { nome: 'Banana', prezzo: 1.2 },
+            { nome: 'Arancia', prezzo: 2.0 }
+          ],
+          modaleAperta: false,
+          valutazione: 0
+        }
+      }
+    });
+
+    // 1️⃣ Product Card
+    app.component('product-card', {
+      props: ['nomeProdotto', 'prezzo'],
+      template: `
+        <div class="product-card">
+          <h3>{{ nomeProdotto }}</h3>
+          <p>Prezzo: €{{ prezzo.toFixed(2) }}</p>
+        </div>
+      `
+    });
+
+    // 2️⃣ Alert Box
+    app.component('alert-box', {
+      props: ['messaggio', 'tipo'],
+      template: `
+        <div class="alert" :class="tipo">
+          {{ messaggio }}
+        </div>
+      `
+    });
+
+    // 3️⃣ Modale
+    app.component('modal-dialog', {
+      template: `
+        <div class="modal">
+          <div class="modal-content">
+            <h3>Questa è una modale</h3>
+            <button @click="$emit('chiudi')">Chiudi</button>
+          </div>
+        </div>
+      `
+    });
+
+    // 4️⃣ Valutazione a Stelle
+    app.component('star-rating', {
+      data() {
+        return { valore: 0 }
+      },
+      methods: {
+        impostaValutazione(n) {
+          this.valore = n;
+          this.$emit('imposta-valutazione', n);
+        }
+      },
+      template: `
+        <div>
+          <span 
+            v-for="n in 5" 
+            :key="n" 
+            class="star" 
+            :class="{ active: n <= valore }" 
+            @click="impostaValutazione(n)">
+            ★
+          </span>
+        </div>
+      `
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
